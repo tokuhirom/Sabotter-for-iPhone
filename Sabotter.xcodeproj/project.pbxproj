@@ -47,6 +47,8 @@
 		9EFAC2450FE51D4100106278 /* SBAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFAC2440FE51D4100106278 /* SBAboutViewController.m */; };
 		9EFAC2480FE5215800106278 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 9EFAC2470FE5215800106278 /* about.html */; };
 		9EFAC24C0FE53CF700106278 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EFAC24B0FE53CF700106278 /* Localizable.strings */; };
+		A8DB1B7C10A51E7000DE2F35 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = A8DB1B7B10A51E7000DE2F35 /* RegexKitLite.m */; };
+		A8DB1B8310A51F4800DE2F35 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A8DB1B8210A51F4800DE2F35 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +122,9 @@
 		9EFAC2440FE51D4100106278 /* SBAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAboutViewController.m; sourceTree = "<group>"; };
 		9EFAC2470FE5215800106278 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = Resources/about.html; sourceTree = "<group>"; };
 		9EFAC24D0FE53D0500106278 /* Japanese */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A8DB1B7A10A51E7000DE2F35 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = RegexKitLite/RegexKitLite.h; sourceTree = "<group>"; };
+		A8DB1B7B10A51E7000DE2F35 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = RegexKitLite/RegexKitLite.m; sourceTree = "<group>"; };
+		A8DB1B8210A51F4800DE2F35 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +135,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				A8DB1B8310A51F4800DE2F35 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +145,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A8DB1B7910A51E5C00DE2F35 /* RegexKitLite */,
 				9EAA24EA1001563100240C29 /* Common */,
 				9EAA24DB100154A900240C29 /* ConfigTab */,
 				9EAA24D5100153BD00240C29 /* MyPostsTab */,
@@ -208,6 +215,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				A8DB1B8210A51F4800DE2F35 /* libicucore.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -332,6 +340,15 @@
 			name = Xml;
 			sourceTree = "<group>";
 		};
+		A8DB1B7910A51E5C00DE2F35 /* RegexKitLite */ = {
+			isa = PBXGroup;
+			children = (
+				A8DB1B7A10A51E7000DE2F35 /* RegexKitLite.h */,
+				A8DB1B7B10A51E7000DE2F35 /* RegexKitLite.m */,
+			);
+			name = RegexKitLite;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -421,6 +438,7 @@
 				9E0766500F9B5067002B6A4D /* SBAlertView.m in Sources */,
 				9EFAC2420FE50F0700106278 /* SBConfigNavigationController.m in Sources */,
 				9EFAC2450FE51D4100106278 /* SBAboutViewController.m in Sources */,
+				A8DB1B7C10A51E7000DE2F35 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

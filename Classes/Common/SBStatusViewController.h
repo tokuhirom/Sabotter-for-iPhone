@@ -8,6 +8,7 @@
     UILabel *textLabel;
     UILabel *replyLabel;
     NSMutableArray *actions;
+	NSString *url;
 }
 
 - (id)initWithStatus:(SBStatus *)_status;

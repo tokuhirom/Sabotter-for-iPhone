@@ -5,7 +5,7 @@
 #import "SBPostViewController.h"
 #import "SBTwitterApiUrl.h"
 #import "SBWassrApiUrl.h"
-
+#import "RegexKitLite.h"
 
 @implementation SBStatusViewController
 
@@ -22,9 +22,13 @@
 - (id)initWithStatus:(SBStatus *)_status {
     if (self = [super init]) {
         status = _status;
+		
+		NSString * regexp = @"(s?https?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)";
+		url = [[status text] stringByMatching:regexp capture:1L];
         actions = [[NSMutableArray alloc]
                       initWithObjects:[NSNull null],
-                      NSLocalizedString(@"Reply", nil),
+				   NSLocalizedString(@"Reply", nil),
+				   url,
                       nil];
         // Data Update
         [[NSNotificationCenter defaultCenter]
@@ -72,6 +76,7 @@
     [replyString appendFormat:@"\nby %@", [status replyName]];
     [replyLabel setText:[NSString stringWithFormat:replyString]];
     [replyLabel sizeToFit];
+
 }
 
 /*
@@ -240,14 +245,18 @@
         [self changeFavorited:![status favorited]];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         return;
-    }
-    
-    SBPostViewController *postCon = [[[SBPostViewController alloc] initOnNavigation:YES] autorelease];
-    [postCon setReplyId:[status Id] withService:[status service]];
-    if ([status service] == SERVICE_TWITTER) {
-        [postCon setReplyText:[NSString stringWithFormat:@"@%@ ", [status loginId]]];
-    }
-    [[self navigationController] pushViewController:postCon animated:YES];
+    } else if ([indexPath row] == 1) {
+		SBPostViewController *postCon = [[[SBPostViewController alloc] initOnNavigation:YES] autorelease];
+		[postCon setReplyId:[status Id] withService:[status service]];
+		if ([status service] == SERVICE_TWITTER) {
+			[postCon setReplyText:[NSString stringWithFormat:@"@%@ ", [status loginId]]];
+		}
+		[[self navigationController] pushViewController:postCon animated:YES];
+	} else if ([indexPath row] == 2) {
+		// open url
+		// TODO: open url in sabotter
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+	}
 }
 
 
