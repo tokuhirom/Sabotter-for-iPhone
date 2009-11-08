@@ -44,6 +44,12 @@
     
     w_switch = [[UISwitch alloc] initWithFrame:CGRectMake(208, 9, 0, 0)];
     [w_switch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+	
+	t_post_switch = [[UISwitch alloc] initWithFrame:CGRectMake(208, 9, 0, 0)];
+    [t_post_switch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    w_post_switch = [[UISwitch alloc] initWithFrame:CGRectMake(208, 9, 0, 0)];
+    [w_post_switch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
     
     t_usernameField = [[UITextField alloc] initWithFrame:CGRectMake(112, 12, 190, 24)];
     [t_usernameField setDelegate:self];
@@ -86,6 +92,8 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [t_switch setOn:[userDefaults boolForKey:USERDEFAULTS_TWITTER_ENABLE] animated:NO];
     [w_switch setOn:[userDefaults boolForKey:USERDEFAULTS_WASSR_ENABLE] animated:NO];
+    [t_post_switch setOn:[userDefaults boolForKey:USERDEFAULTS_TWITTER_POST_ENABLE] animated:NO];
+    [w_post_switch setOn:[userDefaults boolForKey:USERDEFAULTS_WASSR_POST_ENABLE] animated:NO];
     [t_usernameField setText:[userDefaults stringForKey:USERDEFAULTS_TWITTER_USERNAME]];
     [w_usernameField setText:[userDefaults stringForKey:USERDEFAULTS_WASSR_USERNAME]];
     [t_passwordField setText:[userDefaults stringForKey:USERDEFAULTS_TWITTER_PASSWORD]];
@@ -116,7 +124,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section < 2) {
-        return 3;
+        return 4;
     } else if (section == 2) {
         return 1;
     } else {
@@ -152,6 +160,20 @@
             break;
         }
         case 1: {
+            [[cell textLabel] setText:NSLocalizedString(@"Post Enabled", nil)];
+            switch ([indexPath section]) {
+            case 0:
+                [cell addSubview:t_post_switch];
+                break;
+            case 1:
+                [cell addSubview:w_post_switch];
+                break;
+            default:
+                break;
+            }
+            break;
+        }
+        case 2: {
             [[cell textLabel] setText:NSLocalizedString(@"Username", nil)];
             switch ([indexPath section]) {
             case 0:
@@ -165,7 +187,7 @@
             }
             break;
         }
-        case 2: {
+        case 3: {
             [[cell textLabel] setText:NSLocalizedString(@"Password", nil)];
             switch ([indexPath section]) {
             case 0:
@@ -222,11 +244,11 @@
     switch ([indexPath section]) {
     case 0:
         switch([indexPath row]) {
-        case 1:
+        case 2:
             [t_usernameField setEnabled:YES];
             [t_usernameField becomeFirstResponder];
             break;
-        case 2:
+        case 3:
             [t_passwordField setEnabled:YES];
             [t_passwordField becomeFirstResponder];
             break;
@@ -236,11 +258,11 @@
         break;
     case 1:
         switch ([indexPath row]) {
-        case 1:
+        case 2:
             [w_usernameField setEnabled:YES];
             [w_usernameField becomeFirstResponder];
             break;
-        case 2:
+        case 3:
             [w_passwordField setEnabled:YES];
             [w_passwordField becomeFirstResponder];
             break;
@@ -323,6 +345,12 @@
     if ([sender isEqual:w_switch]) {
         [userDefaults setBool:[w_switch isOn] forKey:USERDEFAULTS_WASSR_ENABLE];
     }
+    if ([sender isEqual:t_post_switch]) {
+        [userDefaults setBool:[t_post_switch isOn] forKey:USERDEFAULTS_TWITTER_POST_ENABLE];
+    }
+    if ([sender isEqual:w_post_switch]) {
+        [userDefaults setBool:[w_post_switch isOn] forKey:USERDEFAULTS_WASSR_POST_ENABLE];
+    }
 }
 
 /*
@@ -339,6 +367,8 @@
     [tableView release];
     [t_switch release];
     [w_switch release];
+    [t_post_switch release];
+    [w_post_switch release];
     [t_usernameField release];
     [w_usernameField release];
     [t_passwordField release];

@@ -52,17 +52,27 @@
                                              action:@selector(cancel)] autorelease];
         [[self navigationItem] setLeftBarButtonItem:cancelButton];
     }
-
+    
     // View
+    CGRect textFrame = CGRectMake(10,
+                                  10,
+                                  // 10 + twitterSwitchSize.height + 10 + wassrSwitchSize.height + 10,
+                                  300,
+                                  102);
+    [textView setFrame:textFrame];
+    [textView setDelegate:self];
+    [textView setFont:[UIFont systemFontOfSize:18]];
+    [[self view] addSubview:textView];
+
     CGSize twitterSwitchSize = [twitterSwitch frame].size;
     CGRect twitterSwitchFrame = CGRectMake(310 - twitterSwitchSize.width,
-                                           10,
+                                           10 + textFrame.size.height + 10,
                                            twitterSwitchSize.width,
                                            twitterSwitchSize.height);
     [twitterSwitch setFrame:twitterSwitchFrame];
     [[self view] addSubview:twitterSwitch];
     CGRect twitterLabelFrame = CGRectMake(10,
-                                          10,
+                                          10 + textFrame.size.height + 10,
                                           290 - twitterSwitchSize.width,
                                           twitterSwitchSize.height);
     UILabel *twitterLabel = [[[UILabel alloc] initWithFrame:twitterLabelFrame] autorelease];
@@ -73,13 +83,13 @@
     
     CGSize wassrSwitchSize = [wassrSwitch frame].size;
     CGRect wassrSwitchFrame = CGRectMake(310 - wassrSwitchSize.width,
-                                         10 + twitterSwitchSize.height + 10,
+                                         10 + textFrame.size.height + 10 + twitterSwitchSize.height + 10,
                                          wassrSwitchSize.width,
                                          wassrSwitchSize.height);
     [wassrSwitch setFrame:wassrSwitchFrame];
     [[self view] addSubview:wassrSwitch];
     CGRect wassrLabelFrame = CGRectMake(10,
-                                        10 + twitterSwitchSize.height + 10,
+                                        10 + textFrame.size.height + 10 + twitterSwitchSize.height + 10,
                                         290 - wassrSwitchSize.width,
                                         wassrSwitchSize.height);
     UILabel *wassrLabel = [[[UILabel alloc] initWithFrame:wassrLabelFrame] autorelease];
@@ -90,23 +100,14 @@
     
     // アカウントチェック
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [twitterSwitch setEnabled:[userDefaults boolForKey:USERDEFAULTS_TWITTER_ENABLE]];
+    [twitterSwitch setEnabled:[userDefaults boolForKey:USERDEFAULTS_TWITTER_POST_ENABLE]];
     if (![twitterSwitch isEnabled]) {
         [twitterSwitch setOn:NO animated:NO];
     }
-    [wassrSwitch setEnabled:[userDefaults boolForKey:USERDEFAULTS_WASSR_ENABLE]];
+    [wassrSwitch setEnabled:[userDefaults boolForKey:USERDEFAULTS_WASSR_POST_ENABLE]];
     if (![wassrSwitch isEnabled]) {
         [wassrSwitch setOn:NO animated:NO];
     }
-    
-    CGRect textFrame = CGRectMake(10,
-                                  10 + twitterSwitchSize.height + 10 + wassrSwitchSize.height + 10,
-                                  300,
-                                  102);
-    [textView setFrame:textFrame];
-    [textView setDelegate:self];
-    [textView setFont:[UIFont systemFontOfSize:18]];
-    [[self view] addSubview:textView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
