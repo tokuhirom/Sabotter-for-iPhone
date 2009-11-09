@@ -14,6 +14,7 @@
         CGRect serviceFrame = CGRectMake(2, 70, 48, 12);
         CGRect dateFrame = CGRectMake(52, 70, 244, 12);
         CGRect favoritedFrame = CGRectMake(52, 70, 244, 12);
+        CGRect photoFrame = CGRectMake(42, 70, 244, 12);
         CGRect iconFrame = CGRectMake(2, 20, 48, 48);
         
         userName = [[[UILabel alloc] initWithFrame:nameFrame] autorelease];
@@ -45,6 +46,13 @@
         [favorited setTextColor:[UIColor orangeColor]];
         [favorited setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:favorited];
+
+        photo = [[[UILabel alloc] initWithFrame:photoFrame] autorelease];
+        [photo setFont:[UIFont italicSystemFontOfSize:12.0]];
+        [photo setTextAlignment:UITextAlignmentRight];
+        [photo setTextColor:[UIColor orangeColor]];
+        [photo setBackgroundColor:[UIColor clearColor]];
+        [contentView addSubview:photo];
 
         icon = [[[UIImageView alloc] initWithFrame:iconFrame] autorelease];
         [icon setContentMode:UIViewContentModeScaleAspectFit];
@@ -85,6 +93,11 @@
         [favorited setText:@"★"];
     } else {
         [favorited setText:@""];
+    }
+    if ([[status photoUrl] length] > 0) {
+        [photo setText:@"写"];
+    } else {
+        [photo setText:@""];
     }
 
     SBIconContainer *container = [[SBIconRepository instance] containerForUrl:[status iconUrl]];

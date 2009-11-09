@@ -13,6 +13,8 @@
 #define TAG_REPLY_ID @"reply_user_login_id"
 #define TAG_REPLY_MESSAGE @"reply_message"
 #define TAG_RID @"rid"
+#define TAG_PHOTO_URL @"photo_url"
+#define TAG_PHOTO_THUMBNAIL_URL @"photo_thumbnail_url"
 
 
 @implementation SBWassrXmlParser
@@ -68,6 +70,10 @@
             [status setReplyName:[statusDict objectForKey:TAG_REPLY_NAME]];
             [status setReplyId:[statusDict objectForKey:TAG_REPLY_ID]];
             [status setReplyMessage:[statusDict objectForKey:TAG_REPLY_MESSAGE]];
+        }
+        if ([[statusDict objectForKey:TAG_PHOTO_URL] length] > 0) {
+            [status setPhotoUrl:[statusDict objectForKey:TAG_PHOTO_URL]];
+            [status setPhotoThumbnailUrl:[statusDict objectForKey:TAG_PHOTO_THUMBNAIL_URL]];
         }
         NSDictionary *userInfo = [statusDict objectForKey:TAG_USER];
         {

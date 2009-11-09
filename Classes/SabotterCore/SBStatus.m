@@ -14,6 +14,8 @@
 @synthesize replyMessage;
 @synthesize dateTime;
 @synthesize favorited;
+@synthesize photoUrl;
+@synthesize photoThumbnailUrl;
 
 - (id)init {
     if (self = [super init]) {
@@ -27,6 +29,8 @@
         replyMessage = [[NSString alloc] init];
         dateTime     = [[NSDate alloc] init];
         favorited    = NO;
+        photoUrl     = [[NSString alloc] init];
+        photoThumbnailUrl = [[NSString alloc] init];
     }
 
     return self;
@@ -64,6 +68,8 @@
     [replyId release];
     [replyMessage release];
     [dateTime release];
+    [photoUrl release];
+    [photoThumbnailUrl release];
     [super dealloc];
 }
 

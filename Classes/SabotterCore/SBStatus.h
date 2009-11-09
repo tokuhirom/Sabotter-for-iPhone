@@ -19,6 +19,8 @@ typedef enum {
     NSString *replyMessage;
     NSDate *dateTime;
     BOOL favorited;
+    NSString *photoUrl;
+    NSString *photoThumbnailUrl;
 }
 
 @property (readwrite) SBService service;
@@ -32,5 +34,7 @@ typedef enum {
 @property (retain, nonatomic) NSString *replyMessage;
 @property (retain, nonatomic) NSDate *dateTime;
 @property (readwrite) BOOL favorited;
+@property (retain, nonatomic) NSString *photoUrl;
+@property (retain, nonatomic) NSString *photoThumbnailUrl;
 
 @end

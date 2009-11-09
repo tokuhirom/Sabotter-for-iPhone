@@ -9,6 +9,7 @@
     UILabel *service;
     UILabel *date;
     UILabel *favorited;
+    UILabel *photo;
     UIImageView *icon;
 
     NSDateFormatter *formatter;
