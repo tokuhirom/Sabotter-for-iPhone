@@ -23,13 +23,21 @@
     if (self = [super init]) {
         status = _status;
 		
+        actions = [[NSMutableArray alloc]
+				   initWithObjects:[NSNull null],
+				   NSLocalizedString(@"Reply", nil),
+				   nil];
+		// extract url from message
 		NSString * regexp = @"(s?https?://[-_.!~*'()a-zA-Z0-9;/?:@&=+$,%#]+)";
 		url = [[status text] stringByMatching:regexp capture:1L];
-        actions = [[NSMutableArray alloc]
-                      initWithObjects:[NSNull null],
-				   NSLocalizedString(@"Reply", nil),
-				   url,
-                      nil];
+		if (url) {
+			[actions addObject:url];
+		}
+		// add photo link(wassr only)
+		if ([status photoUrl]) {
+			[actions addObject:[status photoUrl]];
+		}
+		
         // Data Update
         [[NSNotificationCenter defaultCenter]
             addObserver:self
@@ -240,6 +248,8 @@
     if ([indexPath section] != 2) {
         return;
     }
+	
+	int row = [indexPath row];
 
     if ([indexPath row] == 0) {
         [self changeFavorited:![status favorited]];
@@ -252,10 +262,16 @@
 			[postCon setReplyText:[NSString stringWithFormat:@"@%@ ", [status loginId]]];
 		}
 		[[self navigationController] pushViewController:postCon animated:YES];
-	} else if ([indexPath row] == 2) {
+	} else if (row == 2) {
 		// open url
 		// TODO: open url in sabotter
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+		NSString *u = url;
+		if (!u) {
+			u = [status photoUrl];
+		}
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:u]];
+	} else if (row == 3) {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[status photoUrl]]];
 	}
 }
 
